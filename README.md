@@ -36,6 +36,8 @@ SeuratObj_metaData <- data.frame(
 SeuratObj_metaData
 ```
 
+<img width="208" alt="Screenshot 2024-10-25 at 02 35 05" src="https://github.com/user-attachments/assets/dce97c95-607e-4d29-91fa-253bf9e12dc5">
+
 
 # AIM 1: SUMMARIZE CLONAL EXPANSION FOR EACH CLUSTER
 
@@ -74,6 +76,8 @@ expansion_summary_df <- do.call(rbind, expansion_summary)
 #### T27 clones are all single clones, i.e., 0 clone expanded. 
 expansion_summary_df
 ```
+
+<img width="446" alt="Screenshot 2024-10-25 at 02 35 23" src="https://github.com/user-attachments/assets/eec55942-b9e0-4351-a939-982f8d54e961">
 
 
 # AIM 2.  SUMMARIZE WHICH CLONES FROM WHICH CLUSTERS SHARED WITH WHICH OTHER CLUSTERS AND WHICH CLONES NOT SHARED WITH ANY CLUSTERS 
@@ -196,11 +200,17 @@ ctaa_analysis_result <- analyze_Ctaa_sharing(SeuratObj_metaData)
 ### In forward direction: T25 share clone B with T26 and clone B appear in T26 twice. That is clone B expanded twice in T26. That is T25 only has 1 clone (clone B) shared and it share that with T26.  
 ### In reverse direction: T26 share clone B with T25 and clone B appear in T25 four times. That is clone B expanded 4 times in T25. 
 ctaa_analysis_result$Shared 
+```
 
+<img width="846" alt="Screenshot 2024-10-25 at 02 36 17" src="https://github.com/user-attachments/assets/8fb2119d-f551-43cb-9e74-1d1e23cca54b">
+
+
+```{r}
 ### Can just do ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25") to show that how many clones T25 shared with other clusters. 
 ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25")
-
 ```
+
+<img width="819" alt="Screenshot 2024-10-25 at 02 36 47" src="https://github.com/user-attachments/assets/77d553eb-bc9a-4dc6-bede-4d5f2c9d1485">
 
 
 ```{r}
@@ -210,5 +220,6 @@ ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25")
 ctaa_analysis_result$Unique
 ```
 
+<img width="652" alt="Screenshot 2024-10-25 at 02 36 59" src="https://github.com/user-attachments/assets/4c4c72e6-00c9-4397-83aa-7296d820c829">
 
 
