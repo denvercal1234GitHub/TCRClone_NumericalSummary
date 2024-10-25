@@ -155,7 +155,7 @@ analyze_Ctaa_sharing <- function(data) {
           Cluster = cluster,
           Ctaa = value,
           Clusters_Shared = paste(clusters_shared[clusters_shared != cluster], collapse = ", "),
-          Clone_Count_in_receivingEnd = clone_count_in_receiving_end,  # Updated column name
+          Number_of_clusters_shared_thisClone = clone_count_in_receiving_end,  # Updated column name
           stringsAsFactors = FALSE
         )
 
