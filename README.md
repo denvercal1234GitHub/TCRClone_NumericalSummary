@@ -45,6 +45,7 @@ SeuratObj_metaData
 
 `expansion_summary()` need an input as a dataframe that counts the occurrence of each unique clone. 
 
+## If only want the counts without the sequence 
 ```{r}
 ## Step 1: Obtain frequency from SeuratObj_metaData
 SeuratObj_metaData %>% group_by(CTaa, cluster_ID) %>% summarise(count = n()) %>% arrange(cluster_ID) -> SeuratObj_countOccurenceOfEachUniqueClone_df
@@ -78,6 +79,53 @@ expansion_summary_df
 ```
 
 <img width="446" alt="Screenshot 2024-10-25 at 02 35 23" src="https://github.com/user-attachments/assets/eec55942-b9e0-4351-a939-982f8d54e961">
+
+
+## If wanting both the counts and the sequences 
+
+```{r}
+## Step 1: Obtain frequency from SeuratObj_metaData
+SeuratObj_metaData %>%
+  group_by(CTaa, cluster_ID) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  arrange(cluster_ID) -> SeuratObj_metaData
+
+## Step 2: Get unique cluster IDs
+unique_clusters <- unique(SeuratObj_metaData$cluster_ID)
+
+## Step 3: Run expansion_summary to include CTaa values of clones that expanded
+expansion_summary <- lapply(unique_clusters, function(cluster) {
+  
+  # Filter data for the current cluster
+  cluster_data <- SeuratObj_metaData %>%
+    filter(cluster_ID == cluster)
+  
+  # Filter for clones that expanded (count > 1)
+  expanded_clones <- cluster_data %>%
+    filter(count > 1) %>%
+    dplyr::select(CTaa)  # Use dplyr::select to avoid conflict with other select methods
+  
+  # Count how many clones expanded at least once (count > 1)
+  expanded_count <- nrow(expanded_clones)
+  
+  # Create a summary data frame with cluster, expanded count, and expanded CTaa values
+  data.frame(
+    Cluster = cluster,
+    Expanded_Count = expanded_count,
+    Expanded_Clones = paste(expanded_clones$CTaa, collapse = ", ")  # Paste expanded CTaa values as a comma-separated string
+  )
+})
+
+## Step 4: Combine the summaries into a single data frame
+expansion_summary_df <- do.call(rbind, expansion_summary)
+
+# View the final expansion summary with expanded CTaa values
+print(expansion_summary_df)
+```
+
+<img width="444" alt="Screenshot 2024-10-25 at 15 49 34" src="https://github.com/user-attachments/assets/967c3969-2533-4140-81ba-596cff01137a">
+
 
 
 # AIM 2.  SUMMARIZE WHICH CLONES FROM WHICH CLUSTERS SHARED WITH WHICH OTHER CLUSTERS AND WHICH CLONES NOT SHARED WITH ANY CLUSTERS 
