@@ -12,6 +12,9 @@ To be able to generate tables that summarize the numerical values of clonal expa
 For 2 aims (assess TCR clonal expansion and clonal sharing numerically), it starts with a Seurat object after `scRepertoire()`. 
 
 ```{r}
+# Load necessary library
+library(dplyr)
+
 ## Prepare input for expansion_summary() function and analyze_Ctaa_sharing() from a Seurat object that has CTaa info attached from scRepertoire package with cells (rows) without TCR info removed
 ## This input requires the presence of 2 columns in the metadata of Seurat: CTaa is the clone sequences; cluster_ID is cluster assignment from Seurat for each clone
 
@@ -45,7 +48,7 @@ SeuratObj_metaData
 SeuratObj_metaData %>% group_by(CTaa, cluster_ID) %>% summarise(count = n()) %>% arrange(cluster_ID) -> SeuratObj_countOccurenceOfEachUniqueClone_df
 
 ## Step 2: Get unique cluster IDs
-unique_clusters <- unique(SeuratObj_countOccurenceOfEachUniqueClone_df$cluster_ID)
+unique_clusters <- unique(SeuratObj_metaData$cluster_ID)
 
 ## Step 3: Run expansion_summary() 
 expansion_summary <- lapply(unique_clusters, function(cluster) {
@@ -87,9 +90,6 @@ expansion_summary_df
 
 
 ```{r}
-# Load necessary library
-library(dplyr)
-
 # Function to analyze CTaa shared values and specify which clusters share them
 analyze_Ctaa_sharing <- function(data) {
   # Step 1: Get unique clusters
@@ -209,4 +209,6 @@ ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25")
 ## Note: T26 has clone Q and D are not shared with any one, and clone Q appears once in T26, and clone D also appears once in T26. Hence, they are listed and counted as 1 each 
 ctaa_analysis_result$Unique
 ```
+
+
 
