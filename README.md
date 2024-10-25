@@ -205,6 +205,8 @@ ctaa_analysis_result$Shared
 
 <img width="846" alt="Screenshot 2024-10-25 at 02 36 17" src="https://github.com/user-attachments/assets/8fb2119d-f551-43cb-9e74-1d1e23cca54b">
 
+EX: 
+<img width="1296" alt="Screenshot 2024-10-25 at 03 29 42" src="https://github.com/user-attachments/assets/41a94a23-30ec-43b4-84bd-f078af6b7472">
 
 ```{r}
 ### Can just do ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25") to show that how many clones T25 shared with other clusters.
