@@ -76,11 +76,11 @@ expansion_summary_df
 
 `analyze_Ctaa_sharing()` will export a list of 2 dataframes as results (`ctaa_analysis_result`)
 
-***To report how many clones, i.e. the `nrow` that are unique (not shared with anyone) from a cluster, e.g., T1, and their clone sequences*** 
+***To report how many clones that are unique (not shared with anyone) from a cluster, e.g., T1, and their clone sequences*** 
 
 `ctaa_analysis_result$Unique %>% dplyr::filter(Cluster == "T1")`
 
-***To report how many clone(s), i.e. the `nrow` that are shared from this cluster with any other clusters, and the sequences of the clone(s)***
+***To report how many clone(s) that are shared from this cluster with any other clusters, and the sequences of the clone(s)***
 
 `ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T1")`
 
@@ -147,7 +147,7 @@ analyze_Ctaa_sharing <- function(data) {
           Cluster = cluster,
           Ctaa = value,
           Clusters_Shared = paste(clusters_shared[clusters_shared != cluster], collapse = ", "),
-          Clone_Count_in_receivingEnd = clone_count_in_receiving_end,  # Updated column name
+          Number_of_clusters_shared_thisClone = clone_count_in_receiving_end,  # Updated column name
           stringsAsFactors = FALSE
         )
 
