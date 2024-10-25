@@ -88,7 +88,7 @@ expansion_summary_df
 
 `ctaa_analysis_result$Unique %>% dplyr::filter(Cluster == "T1")`
 
-***To report how many clone(s) that are shared from this cluster with each of other clusters, the sequences of the clone(s) shared, and how many time it occurs in the receiving cluster***
+***To report how many clone(s) that are shared from this cluster with each of other clusters, the sequences of the clone(s) shared, and how many time it occurs in the receiving cluster. If this clone is shared by more than 1 cluster, then it counts the number of clusters sharing the clone ***
 
 `ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T1")`
 
@@ -198,7 +198,8 @@ ctaa_analysis_result <- analyze_Ctaa_sharing(SeuratObj_metaData)
 # View the shared results with cluster information (DOESN'T INCLUDE UNIQUE CLONES)
 ### Note:
 ### In forward direction: T25 share clone B with T26 and clone B appear in T26 twice. That is clone B expanded twice in T26. That is T25 only has 1 clone (clone B) shared and it share that with T26.  
-### In reverse direction: T26 share clone B with T25 and clone B appear in T25 four times. That is clone B expanded 4 times in T25. 
+### In reverse direction: T26 share clone B with T25 and clone B appear in T25 four times. That is clone B expanded 4 times in T25.
+### If this clone is shared by more than 1 cluster, then it counts the number of clusters sharing the clone 
 ctaa_analysis_result$Shared 
 ```
 
@@ -206,7 +207,8 @@ ctaa_analysis_result$Shared
 
 
 ```{r}
-### Can just do ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25") to show that how many clones T25 shared with other clusters. 
+### Can just do ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25") to show that how many clones T25 shared with other clusters.
+### If this clone is shared by more than 1 cluster, then it counts the number of clusters sharing the clone
 ctaa_analysis_result$Shared %>% dplyr::filter(Cluster == "T25")
 ```
 
