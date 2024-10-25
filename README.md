@@ -1,5 +1,7 @@
 Thanks to pointers from @ncborcherding, who developed the `scRepertoire` package to attach TCR info onto Seurat object at https://github.com/ncborcherding/scRepertoire. 
 
+Original query: https://github.com/ncborcherding/scRepertoire/issues/427
+
 
 # AIMS
 
